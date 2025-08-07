@@ -32,6 +32,13 @@ fun App() {
         SnackbarHostState()
     }
 
+    val geminiTest : GeminiTest = GeminiTest(httpClient = koinInject())
+    LaunchedEffect(Unit){
+        geminiTest.generateText(
+            prompt = "Genereate a Story about a Shahrukh khan how he is become a king"
+        )
+    }
+
     GlobalSideEffects(snackbarHostState = snackbarHostState)
     MainApp(snackbarHostState = snackbarHostState)
 

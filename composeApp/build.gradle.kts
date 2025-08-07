@@ -44,6 +44,8 @@ kotlin {
             // Coroutines
             implementation(libs.kotlinx.coroutines.android)
 
+            // ktor
+            implementation(libs.ktor.client.okhttp)
 
             // Dependency Injection
             implementation(libs.koin.android)
@@ -80,6 +82,12 @@ kotlin {
             // Serialization
             implementation(libs.kotlinx.serialization.json)
 
+            // ktor
+            implementation(libs.ktor.client.core)
+            // ktor plugins
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
 
             // Coroutines
             implementation(libs.kotlinx.coroutines.core)
@@ -131,6 +139,10 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        iosMain.dependencies {
+            // ktor
+            implementation(libs.ktor.client.darwin)
         }
 
         named { it.lowercase().startsWith("ios") }.configureEach {
