@@ -20,6 +20,8 @@ import com.kmpstarter.core.datastore.theme.ThemeDataStore
 import com.kmpstarter.core.events.controllers.SnackbarController
 import com.kmpstarter.core.events.utils.ObserveAsEvents
 import com.kmpstarter.core.navigation.ComposeNavigation
+import com.kmpstarter.core.utils.logging.Log
+import com.kmpstarter.features.text_writer.domain.repository.WriterRepository
 import com.kmpstarter.theme.ApplicationTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -32,12 +34,32 @@ fun App() {
         SnackbarHostState()
     }
 
-    val geminiTest : GeminiTest = GeminiTest(httpClient = koinInject())
+    val writerRepository : WriterRepository = koinInject()
+
     LaunchedEffect(Unit){
-        geminiTest.generateText(
-            prompt = "Genereate a Story about a Shahrukh khan how he is become a king"
-        )
+        val TAG = "WRITER_REPOSITORY"
+      val writerItem =   writerRepository.generateText( prompt = "please text about my life my name is mohit from rishikesh")
+
+        Log.d(TAG , writerItem)
+        delay(1000L)
+
+        val result = writerRepository.insertHistory(writerItem = writerItem).onSuccess {
+            Log.d(TAG , "INSERTED SUCCESSFULLY")
+            writerRepository.getHistory().collect{
+                Log.d(
+                    TAG,
+                    it
+                )
+            }
+        }.onFailure{
+            Log.d(TAG , "INSERTION ERROR")
+        }
+
+
+
     }
+
+
 
     GlobalSideEffects(snackbarHostState = snackbarHostState)
     MainApp(snackbarHostState = snackbarHostState)

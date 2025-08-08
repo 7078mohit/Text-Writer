@@ -9,23 +9,11 @@ import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
-
-@Entity
-data class SampleEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val value: String,
-)
-
-@Dao
-interface MyDao{
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCurrency(sampleEntity: SampleEntity): Long
-
-}
+import com.kmpstarter.features.text_writer.data.data_source.room.dao.WriterDao
+import com.kmpstarter.features.text_writer.data.data_source.room.entities.WriterEntity
 
 @Database(
-    entities = [SampleEntity::class],
+    entities = [WriterEntity::class],
     version = KmpStarterDatabase.DB_VERSION,
     exportSchema = false
 )
@@ -39,8 +27,7 @@ abstract class KmpStarterDatabase : RoomDatabase() {
     }
 
     /*Todo add your DAOs here*/
-    abstract fun myDao(): MyDao
-
+    abstract fun writerDao(): WriterDao
 
 }
 
