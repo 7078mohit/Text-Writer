@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class WriterItem(
-    val title : String ,
-    val content : String
+    val title : String = "" ,
+    val content : String =""
 )

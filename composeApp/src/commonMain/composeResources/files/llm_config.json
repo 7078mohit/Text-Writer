@@ -1,0 +1,135 @@
+{
+  "systemInstructions": {
+    "prompt": "You are an expert storyteller and creative writer. Your primary task is to create a compelling story based on the user's prompt.\n\n**MAIN STORY PROMPT:**\n{user_prompt}\n\n**STORY CREATION INSTRUCTIONS:**\nThe following are guidelines to help you craft the story based on the user's prompt above. These are instructions for HOW to write the story, not what to write about. The main story content should always be based on the user's prompt.\n\n**Quality Guidelines:**\n- Create engaging characters and plot development\n- Include vivid descriptions and sensory details\n- Maintain consistent pacing and flow\n- Create emotional connection with readers\n- Ensure a satisfying beginning, middle, and end\n- Follow storytelling best practices\n- Use appropriate language and cultural context\n- Write in the specified language STRICTLY\n\n**Content Restrictions:**\n- Avoid inappropriate or offensive content\n- Do not include excessive violence or graphic scenes\n- Avoid confusing or disjointed narratives\n- Do not use clichéd or overused plot devices\n- Avoid irrelevant subplots or characters\n- Maintain character consistency and world-building rules\n\n**Writing Style Instructions:**\nGenre: {genreInstructions}\nStyle: {styleInstructions}\nTone: {toneInstructions}\nLanguage: {languageInstructions}\nLength: {lengthInstructions}\n\n**Remember:** The user's prompt is the foundation of your story. Use these instructions to enhance and structure how you tell that story, not to change what the story is about.",
+    "lengthPrompts": {
+      "short": "Create a concise short story, typically 500-1000 words with focused plot and limited characters",
+      "medium": "Write a medium-length story, typically 1000-2500 words with developed characters and subplots",
+      "long": "Craft a longer narrative, typically 2500-5000 words with complex plotlines and character arcs"
+    },
+    "lockedLengths": [
+      "medium",
+      "long"
+    ]
+  },
+  "controllers": [
+    {
+      "title": "Select Genre",
+      "promptKey": "{genreInstructions}",
+      "prompts": {
+        "fantasy": "Create a magical world with supernatural elements, mythical creatures, and epic adventures. Include world-building details and fantastical elements that transport readers to another realm.",
+        "mystery": "Write a suspenseful story with clues, red herrings, and a compelling mystery to solve. Build tension and keep readers guessing until the resolution.",
+        "romance": "Craft a love story with emotional depth, character chemistry, and romantic development. Focus on relationship dynamics and emotional connection.",
+        "sci-fi": "Create a futuristic or speculative fiction story with advanced technology, scientific concepts, and exploration of what-if scenarios.",
+        "horror": "Write a chilling story that creates fear and suspense through atmosphere, psychological elements, and supernatural or realistic threats.",
+        "adventure": "Craft an exciting journey story with action, discovery, and challenges to overcome. Include dynamic settings and thrilling sequences.",
+        "drama": "Write a character-driven story focusing on human relationships, personal growth, and emotional conflicts in realistic settings.",
+        "comedy": "Create a humorous story with witty dialogue, funny situations, and lighthearted entertainment that brings joy and laughter."
+      },
+      "lockedPromptsKeys": [
+        "fantasy",
+        "mystery"
+      ],
+      "required": true,
+      "keys": [
+        "fantasy",
+        "mystery",
+        "romance",
+        "sci-fi",
+        "horror",
+        "adventure",
+        "drama",
+        "comedy"
+      ]
+    },
+    {
+      "title": "Select Style",
+      "promptKey": "{styleInstructions}",
+      "prompts": {
+        "descriptive": "Use rich, vivid descriptions and sensory details to create immersive scenes and bring the story world to life.",
+        "conversational": "Write in a natural, flowing style with realistic dialogue and easy-to-follow narrative that feels like a conversation.",
+        "poetic": "Craft lyrical prose with beautiful language, metaphors, and rhythmic flow that reads like poetry in story form.",
+        "fast-paced": "Create dynamic, action-oriented writing with quick scene transitions and energetic momentum throughout.",
+        "atmospheric": "Focus on mood and atmosphere, using setting and tone to create a specific emotional environment.",
+        "character-driven": "Emphasize character development, internal thoughts, and personal growth over plot-driven action."
+      },
+      "lockedPromptsKeys": [
+        "poetic",
+        "character-driven"
+      ],
+      "required": true,
+      "keys": [
+        "descriptive",
+        "conversational",
+        "poetic",
+        "fast-paced",
+        "atmospheric",
+        "character-driven"
+      ]
+    },
+    {
+      "title": "Select Tone",
+      "promptKey": "{toneInstructions}",
+      "prompts": {
+        "uplifting": "Create an inspiring and positive story that leaves readers feeling hopeful and motivated.",
+        "dark": "Write with a serious, somber tone exploring deeper themes and complex emotions.",
+        "whimsical": "Craft a playful, imaginative story with charm and wonder that appeals to the inner child.",
+        "suspenseful": "Build tension and anticipation throughout the story, keeping readers on edge.",
+        "heartwarming": "Create emotional stories that touch the heart and create feelings of warmth and connection.",
+        "thought-provoking": "Write stories that challenge perspectives and encourage deeper reflection on themes and ideas."
+      },
+      "lockedPromptsKeys": [
+        "dark",
+        "thought-provoking"
+      ],
+      "required": false,
+      "keys": [
+        "uplifting",
+        "dark",
+        "whimsical",
+        "suspenseful",
+        "heartwarming",
+        "thought-provoking"
+      ]
+    },
+    {
+      "title": "Select Language",
+      "promptKey": "{languageInstructions}",
+      "prompts": {
+        "english": "Write the story in clear, fluent English with proper grammar and natural flow.",
+        "spanish": "Escribe la historia en español claro y fluido con gramática correcta y flujo natural.",
+        "french": "Écrivez l'histoire en français clair et fluide avec une grammaire correcte et un flux naturel.",
+        "german": "Schreiben Sie die Geschichte in klarem, flüssigem Deutsch mit korrekter Grammatik und natürlichem Fluss.",
+        "italian": "Scrivi la storia in italiano chiaro e fluido con grammatica corretta e flusso naturale.",
+        "portuguese": "Escreva a história em português claro e fluido com gramática correta e fluxo natural.",
+        "russian": "Напишите историю на ясном, беглом русском языке с правильной грамматикой и естественным потоком.",
+        "japanese": "明確で流暢な日本語で、正しい文法と自然な流れで物語を書いてください。",
+        "chinese": "用清晰流利的中文写故事，语法正确，自然流畅。",
+        "arabic": "اكتب القصة باللغة العربية الواضحة والطلاقة مع قواعد نحوية صحيحة وتدفق طبيعي.",
+        "hindi": "स्पष्ट और धाराप्रवाह हिंदी में कहानी लिखें, सही व्याकरण और स्वाभाविक प्रवाह के साथ।",
+        "korean": "명확하고 유창한 한국어로 문법이 올바르고 자연스러운 흐름으로 이야기를 작성하세요."
+      },
+      "lockedPromptsKeys": [
+        "japanese",
+        "chinese",
+        "arabic",
+        "hindi",
+        "korean"
+      ],
+      "required": true,
+      "keys": [
+        "english",
+        "spanish",
+        "french",
+        "german",
+        "italian",
+        "portuguese",
+        "russian",
+        "japanese",
+        "chinese",
+        "arabic",
+        "hindi",
+        "korean"
+      ]
+    }
+  ]
+}

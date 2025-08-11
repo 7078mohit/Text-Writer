@@ -21,7 +21,11 @@ import com.kmpstarter.core.events.controllers.SnackbarController
 import com.kmpstarter.core.events.utils.ObserveAsEvents
 import com.kmpstarter.core.navigation.ComposeNavigation
 import com.kmpstarter.core.utils.logging.Log
+import com.kmpstarter.features.core.presentation.ui_main.screens.SettingScreens
 import com.kmpstarter.features.text_writer.domain.repository.WriterRepository
+import com.kmpstarter.features.text_writer.presentation.ui_main.screens.PreviewScreen
+import com.kmpstarter.features.text_writer.presentation.ui_main.screens.WriterScreen
+import com.kmpstarter.features.text_writer.presentation.ui_main.screens.WriterScreenContent
 import com.kmpstarter.theme.ApplicationTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -35,30 +39,6 @@ fun App() {
     }
 
     val writerRepository : WriterRepository = koinInject()
-
-    LaunchedEffect(Unit){
-        val TAG = "WRITER_REPOSITORY"
-      val writerItem =   writerRepository.generateText( prompt = "please text about my life my name is mohit from rishikesh")
-
-        Log.d(TAG , writerItem)
-        delay(1000L)
-
-        val result = writerRepository.insertHistory(writerItem = writerItem).onSuccess {
-            Log.d(TAG , "INSERTED SUCCESSFULLY")
-            writerRepository.getHistory().collect{
-                Log.d(
-                    TAG,
-                    it
-                )
-            }
-        }.onFailure{
-            Log.d(TAG , "INSERTION ERROR")
-        }
-
-
-
-    }
-
 
 
     GlobalSideEffects(snackbarHostState = snackbarHostState)
@@ -88,6 +68,11 @@ private fun MainApp(
                 )
             }
         ) { innerPaddings: PaddingValues ->
+//            WriterScreen()
+            //SettingScreens()
+
+            PreviewScreen()
+            return@Scaffold
             ComposeNavigation(
                 scaffoldModifier = Modifier.padding(innerPaddings)
             )

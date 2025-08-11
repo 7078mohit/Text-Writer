@@ -1,5 +1,19 @@
 <resources>
-    <string name="app_name">KMP Starter</string>
+    <string name="app_name">Story Generator</string>
+
+    <!-- Strings for Writer App -->
+    <string name="writer_prompt_placeholder">Enter your story prompt...</string>
+
+
+    <!-- Setting Screens -->
+    <string name="setting_title">Settings</string>
+
+    <!-- story preview -->
+    <string name="preview_title">Story Preview</string>
+
+    <!-- History Screens -->
+    <string name="history_name">History</string>
+    <string name="writer_empty_history">No History found</string>
 
     <!-- Auth Screens -->
     <string name="auth_welcome_back">Welcome Back</string>

@@ -38,7 +38,7 @@ fun CupertinoSectionRow(
     icon: ImageVector,
     iconTint: Color = MaterialTheme.colorScheme.primary,
     isLast: Boolean = false,
-    isClickable: Boolean = false,
+    isClickable: Boolean = true,
     showChevron: Boolean = false,
     valueColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     onClick: () -> Unit = {},

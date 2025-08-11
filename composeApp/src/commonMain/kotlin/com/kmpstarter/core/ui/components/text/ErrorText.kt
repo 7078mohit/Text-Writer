@@ -8,11 +8,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun ErrorText(error: String) {
+fun ErrorText(error: String , textAlign: TextAlign = TextAlign.Center) {
     Text(
         modifier = Modifier.fillMaxWidth(),
         text = error,
-        textAlign = TextAlign.Center,
+        textAlign =textAlign,
         style = MaterialTheme.typography.labelMedium,
         color = MaterialTheme.colorScheme.error
     )

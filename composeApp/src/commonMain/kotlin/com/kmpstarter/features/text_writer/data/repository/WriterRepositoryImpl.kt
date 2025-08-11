@@ -91,7 +91,6 @@ class WriterRepositoryImpl(
         )
 
         return writerItem
-
     }
 
     override suspend fun getHistory() = roomServices.getWriterItems().map { writerEntitiesList ->
@@ -101,7 +100,6 @@ class WriterRepositoryImpl(
     }
 
     override suspend fun insertHistory(writerItem: WriterItem): Result<WriterItem> {
-
         return try {
            roomServices.insertWriterItem(writerEntity = writerItem.toEntity())
             Result.success(writerItem)

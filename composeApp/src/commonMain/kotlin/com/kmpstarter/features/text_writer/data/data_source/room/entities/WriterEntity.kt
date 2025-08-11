@@ -19,5 +19,5 @@ fun toWriterItem(): WriterItem{                             // is fun se ab hum 
         title = title,
         content = content
     )
-}
+  }
 }
