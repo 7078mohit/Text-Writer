@@ -29,7 +29,7 @@ class WriterRepositoryImpl(
         const val GENERATE_CONTENT_API = "generateContent"
     }
 
-
+//jsonpayload se to hmari prompt jayegi gemini ko
     override suspend fun generateText(prompt: String): WriterItem {
         val jsonPayload = """
             {
@@ -86,7 +86,9 @@ class WriterRepositoryImpl(
 
         val rawjsonText = geminiResponse.candidates[0].content.parts[0].text
 
-        val writerItem: WriterItem = Json.decodeFromString(
+
+    //hm isme rawjsonText joki json me hi h usko writerItem me convert krre hai
+        val writerItem: WriterItem = Json.decodeFromString<WriterItem>(
             string = rawjsonText
         )
 

@@ -38,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.kmpstarter.core.ui.components.buttons.GenerateAiButton
 import com.kmpstarter.core.ui.components.text.ErrorText
 import com.kmpstarter.core.ui.layouts.lists.ScrollableColumn
+import com.kmpstarter.features.text_writer.presentation.events.WriterEvents
 import com.kmpstarter.features.text_writer.presentation.models.llm.Controller
 import com.kmpstarter.features.text_writer.presentation.ui_main.layouts.ControllerLayout
 import com.kmpstarter.features.text_writer.presentation.viewmodels.WriterViewModel
@@ -49,12 +50,15 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 @Composable
-fun WriterScreen(modifier: Modifier = Modifier , viewModel: WriterViewModel = koinInject()) {
+fun WriterScreen(modifier: Modifier = Modifier ,
+                 paddingValues: PaddingValues,
+                 viewModel: WriterViewModel = koinInject()) {
 
 
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     WriterScreenContent(
+        paddingValues = paddingValues,
         prompt = state.prompt,
         promptError = state.promptErrorr,
         promptLength = state.promptLength,
@@ -74,16 +78,24 @@ fun WriterScreen(modifier: Modifier = Modifier , viewModel: WriterViewModel = ko
         controllers = state.llmConfig?.controllers,
         selectedControllerMap = state.selectedControllersMap,
         onControllerSelected = viewModel::onControllerSelected,
+
+        isLoading = state.isLoading,
+        onGenerateClick = {
+            viewModel.onEvent(events = WriterEvents.GenerateText)
+        }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WriterScreenContent(
+    paddingValues: PaddingValues,
 
     modifier: Modifier = Modifier,
     isItemLocked : Boolean,
 
+    isLoading : Boolean,
+    onGenerateClick : () -> Unit ,
 
     prompt: String,
     promptError: String,
@@ -120,7 +132,9 @@ fun WriterScreenContent(
 
     ) { innnerpadding: PaddingValues ->
 
-        Box(modifier = Modifier.fillMaxSize().padding(innnerpadding)) {
+        Box(modifier = Modifier.fillMaxSize().padding(innnerpadding).padding(
+            bottom = paddingValues.calculateBottomPadding()
+        )) {
 
             ScrollableColumn(modifier = Modifier.fillMaxSize().padding(
                 Dimens.paddingMedium
@@ -167,8 +181,10 @@ fun WriterScreenContent(
                     .align(Alignment.BottomCenter)
                     .padding(
                     horizontal = Dimens.paddingSmall),
-                isGenerating = false,
-                onClick = {}
+                isGenerating = isLoading,
+                onClick = {
+                    onGenerateClick.invoke()
+                }
             )
         }
 

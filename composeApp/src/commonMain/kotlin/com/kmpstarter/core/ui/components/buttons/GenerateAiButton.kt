@@ -37,7 +37,7 @@ fun GenerateAiButton(
     onClick: () -> Unit = {},
     enable: Boolean = true,
     onDisabledClick: () -> Unit = {},
-) {
+){
     Button(
         onClick = { if (enable) onClick() else onDisabledClick() },
         modifier = modifier,

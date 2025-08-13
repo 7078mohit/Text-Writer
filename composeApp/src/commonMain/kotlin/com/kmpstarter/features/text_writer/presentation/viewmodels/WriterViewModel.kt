@@ -1,11 +1,14 @@
 package com.kmpstarter.features.text_writer.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.kmpstarter.core.events.controllers.SnackbarController
+import com.kmpstarter.core.events.navigator.interfaces.Navigator
 import com.kmpstarter.features.text_writer.domain.models.WriterItem
 import com.kmpstarter.features.text_writer.domain.repository.WriterRepository
 import com.kmpstarter.features.text_writer.presentation.events.WriterEvents
 import com.kmpstarter.features.text_writer.presentation.models.llm.LlmConfig
 import com.kmpstarter.features.text_writer.presentation.states.WriterState
+import com.kmpstarter.features.text_writer.presentation.ui_main.nav_graphs.WriterScreens
 import kmpstarter.composeapp.generated.resources.Res
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +20,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
-class WriterViewModel(private val repository: WriterRepository) : ViewModel() {
+class WriterViewModel(private val repository: WriterRepository , private val navigator: Navigator) : ViewModel() {
 
     companion object {
         private val PATH_LLM_CONFIG = "files/llm_config.json"
@@ -46,8 +49,19 @@ class WriterViewModel(private val repository: WriterRepository) : ViewModel() {
     }
 
     private fun generateText() {
+
+
+
         generateTextJob?.cancel()
         generateTextJob = CoroutineScope(Dispatchers.IO).launch {
+
+            if (state.value.prompt.isEmpty() || _state.value.promptErrorr.isNotEmpty()){
+                SnackbarController.sendAlert(
+                    message = "Please enter Prompt"
+                )
+                return@launch
+            }
+
             _state.update {
                 it.copy(
                     isLoading = true
@@ -60,10 +74,14 @@ class WriterViewModel(private val repository: WriterRepository) : ViewModel() {
                   it.copy(
                       isLoading = false,
                       writerItem = writerItem,
+                      promptLength = 0,
                       prompt = ""
                   )
                 }
                 insertHistory(writerItem = writerItem)
+                navigator.navigateTo(
+                    route = WriterScreens.Preview
+                )
             }
             catch (e : Exception){
                _state.update {
@@ -157,6 +175,14 @@ class WriterViewModel(private val repository: WriterRepository) : ViewModel() {
     }
 
 
+
+    fun onWriterItemChange(Item : WriterItem) = _state.update {
+        it.copy(
+            writerItem = Item
+        )
+    }
+
+
     fun onPromptChange(value : String){
         val error = when{
             value.length > _state.value.promptMaxLength -> "Max length is ${_state.value.promptMaxLength}"
@@ -189,6 +215,9 @@ class WriterViewModel(private val repository: WriterRepository) : ViewModel() {
         }
 
     }
+
+
+
 
 
 }

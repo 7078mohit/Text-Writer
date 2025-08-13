@@ -33,12 +33,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.kmpstarter.core.events.controllers.SnackbarController
 import com.kmpstarter.core.ui.layouts.lists.ScrollableColumn
 import com.kmpstarter.core.utils.intents.IntentUtils
 import com.kmpstarter.features.text_writer.domain.models.WriterItem
@@ -48,6 +50,7 @@ import com.kmpstarter.theme.onErrorLight
 import kmpstarter.composeapp.generated.resources.Res
 import kmpstarter.composeapp.generated.resources.history_name
 import kmpstarter.composeapp.generated.resources.preview_title
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
@@ -56,24 +59,31 @@ fun PreviewScreen(
    viewModel: WriterViewModel = koinInject(),
    intentUtils: IntentUtils  = koinInject()
 ){
+    val scope = rememberCoroutineScope()
+
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     PreviewScreenContent(
-       writerItem = state.writerItem.copy(
-           title = "Shahrukh khan && Mohit ",
-           content = "In the world two kings  alive only these name is known all the world king khan and Mohit"
-       ),
+       writerItem = state.writerItem,
         onNavigateUp = {},
         onCopyClick = {
-                writerItem ->
-            intentUtils.copyToClipboard(
-                text = "${writerItem.title} \n ${writerItem.content}")
+            scope.launch {
+
+                intentUtils.copyToClipboard(
+                    text = "${state.writerItem.title} \n ${state.writerItem.content}"
+                )
+                SnackbarController.sendAlert("Copied!!")
+            }
         },
-        onShareClick = { writerItem ->
+        onShareClick = {
             intentUtils.shareText(
-               text =  "${writerItem.title} \n ${writerItem.content}"
+               text =  "${state.writerItem.title} \n ${state.writerItem.content}"
             )},
-        onReportClick = {}
+        onReportClick = {
+            scope.launch{
+            // todo save report into firebase or using custom api
+            SnackbarController.sendAlert("Reported!")
+        }}
     )
 
 }
@@ -84,8 +94,8 @@ fun PreviewScreenContent(
     modifier: Modifier = Modifier,
     writerItem: WriterItem,
     onNavigateUp:() -> Unit,
-    onShareClick:(writerItem : WriterItem) -> Unit,
-    onCopyClick:(writerItem : WriterItem) -> Unit,
+    onShareClick:() -> Unit,
+    onCopyClick:() -> Unit,
     onReportClick:() -> Unit
 ){
     Scaffold(
@@ -148,7 +158,7 @@ fun PreviewScreenContent(
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier.weight(1f),
                     onClick = {
-                        onShareClick(writerItem)
+                        onShareClick()
                     }
                 ){
 
@@ -168,7 +178,7 @@ fun PreviewScreenContent(
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier.weight(1f),
                     onClick = {
-                        onCopyClick(writerItem)
+                        onCopyClick()
                     }
                 ){
                     Icon(

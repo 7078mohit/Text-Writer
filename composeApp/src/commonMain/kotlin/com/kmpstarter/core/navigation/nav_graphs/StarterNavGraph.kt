@@ -11,7 +11,7 @@ import com.kmpstarter.core.ui.utils.navigation.appNavComposable
 
 fun NavGraphBuilder.starterNavGraph(
     scaffoldModifier: Modifier,
-) {
+){
 
     navigation<StarterScreens.Root>(
         startDestination = StarterScreens.WelcomeScreen,

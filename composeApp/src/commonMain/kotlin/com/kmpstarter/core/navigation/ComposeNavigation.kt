@@ -12,6 +12,8 @@ import com.kmpstarter.core.events.utils.ObserveAsEvents
 import com.kmpstarter.core.navigation.nav_graphs.appNavGraph
 import com.kmpstarter.core.navigation.screens.StarterScreens
 import com.kmpstarter.core.ui.composition_locals.LocalNavController
+import com.kmpstarter.features.text_writer.presentation.ui_main.nav_graphs.WriterScreens
+import com.kmpstarter.features.text_writer.presentation.ui_main.screens.WriterScreen
 import org.koin.compose.koinInject
 
 
@@ -26,9 +28,8 @@ fun ComposeNavigation(
     CompositionLocalProvider(LocalNavController provides navController) {
         NavHost(
             navController = navController,
-            startDestination = StarterScreens.Root
+            startDestination = WriterScreens.Root
         ) {
-
             appNavGraph(
                 scaffoldModifier = scaffoldModifier
             )

@@ -17,30 +17,45 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.room.util.TableInfo
+import com.kmpstarter.core.events.navigator.interfaces.Navigator
 import com.kmpstarter.core.ui.layouts.lists.CupertinoLazyColumn
 import com.kmpstarter.features.text_writer.domain.models.WriterItem
 import com.kmpstarter.features.text_writer.presentation.ui_main.layouts.EmptyHistoryLayout
+import com.kmpstarter.features.text_writer.presentation.ui_main.nav_graphs.WriterScreens
 import com.kmpstarter.features.text_writer.presentation.viewmodels.WriterViewModel
 import com.kmpstarter.theme.Dimens
 import kmpstarter.composeapp.generated.resources.Res
 import kmpstarter.composeapp.generated.resources.history_name
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 @Composable
 fun HistoryScreen(
-    viewModel: WriterViewModel = koinInject()
+    viewModel: WriterViewModel = koinInject(),
+    navigator : Navigator = koinInject()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val scope = rememberCoroutineScope()
+
     HistoryScreenContent(
         modifier = Modifier,
         list = state.writerItemsHistory,
-        onHistoryClick = {}
+        onHistoryClick = { writerItem ->
+            scope.launch {
+
+                viewModel.onWriterItemChange(writerItem)
+
+            navigator.navigateTo(
+            route = WriterScreens.Preview
+            )
+            }}
     )
 }
 
@@ -49,7 +64,7 @@ fun HistoryScreen(
 fun HistoryScreenContent(
     modifier: Modifier = Modifier,
     list: List<WriterItem>,
-    onHistoryClick:(writerItem : WriterItem) -> Unit
+    onHistoryClick:(WriterItem) -> Unit
 ) {
 
     Scaffold(
@@ -92,7 +107,7 @@ fun HistoryScreenContent(
 }
 
 @Composable
-fun HistoryCard(writerItem : WriterItem ,onHistoryClick: (writerItem : WriterItem) -> Unit) {
+fun HistoryCard(writerItem : WriterItem ,onHistoryClick: (WriterItem) -> Unit) {
     Card(modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors().copy(
             containerColor = MaterialTheme.colorScheme.surface

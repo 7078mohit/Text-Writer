@@ -71,8 +71,8 @@ private fun MainApp(
 //            WriterScreen()
             //SettingScreens()
 
-            PreviewScreen()
-            return@Scaffold
+//            PreviewScreen()
+
             ComposeNavigation(
                 scaffoldModifier = Modifier.padding(innerPaddings)
             )
