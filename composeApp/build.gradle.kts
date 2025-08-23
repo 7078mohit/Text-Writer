@@ -154,14 +154,14 @@ kotlin {
 }
 
 android {
-    namespace = "com.kmpstarter"
+    namespace = "com.storygenerator"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         buildFeatures {
             buildConfig = true
         }
-        applicationId = "com.mohit.textwriter"                   //  ye abhi dali hai
+        applicationId = "com.storygenerator"                   //  ye abhi dali hai
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

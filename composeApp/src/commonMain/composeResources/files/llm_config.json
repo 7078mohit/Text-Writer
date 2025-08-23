@@ -81,7 +81,7 @@
         "dark",
         "thought-provoking"
       ],
-      "required": false,
+      "required": true,
       "keys": [
         "uplifting",
         "dark",
