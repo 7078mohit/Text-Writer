@@ -1,21 +1,6 @@
-# 🚀 KMP Starter
-
-![KMP-Starter-Template](https://github.com/user-attachments/assets/bcf5bd62-9d5f-4d6c-9d2a-d8de6e76a3eb)
-
-A modern, production-ready **Kotlin Multiplatform** starter template with Material 3 design, utils, and clean architecture.
-
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.0-blue.svg)](https://kotlinlang.org)
-[![Compose Multiplatform](https://img.shields.io/badge/Compose%20Multiplatform-1.8.2-orange.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
-[![Material 3](https://img.shields.io/badge/Material%203-Latest-green.svg)](https://m3.material.io/)
-
+# 🚀 Story generator
 
 ## ✨ Features
-
-### 🔐 **Authentication** ✅ 80% Complete
-- **Google Sign-In** - OAuth 2.0 authentication with Google
-- **Email/Password** - Traditional authentication system
-- **Password Reset** - Email-based password recovery
-- **Account Deletion** - Email-based account deletion
 
 ### 🎨 **UI & Design**
 - **Material 3 Design System** - Modern, adaptive design with dark mode support
@@ -42,56 +27,19 @@ A modern, production-ready **Kotlin Multiplatform** starter template with Materi
 - **Navigation** - Type-safe & Global navigation with transitions
 - **Theme Events** - Reactive theme management
 
-### 💰 **Monetization**
-- **RevenueCat Integration** - In-app purchases and subscriptions
-  - [📖 RevenueCat Setup Guide](docs/revenue-cat.md) - Complete implementation guide
-
 ### 🛠️ **Utilities & Tools**
 - **Platform Detection** - Cross-platform utilities
 - **Logging System** - Structured logging across platforms
 - **Time Utilities** - timemillis handling
 - **Screen Size Detection** - Responsive design utilities
 
-## 📁 Project Structure
 
-```
-composeApp/src/commonMain/kotlin/com/kmpstarter/
-├── core/
-│   ├── ui/                    # UI Components & Screens
-│   │   ├── components/        # Reusable UI components
-│   │   ├── screens/          # Screen implementations
-│   │   ├── layouts/          # Custom layout components
-│   │   ├── modifiers/        # Custom modifiers
-│   │   ├── dialogs/          # Dialog components
-│   │   └── bottom_sheets/    # Bottom sheet components
-│   ├── events/               # Event Management
-│   │   ├── controllers/      # Event controllers
-│   │   ├── navigator/        # Navigation system
-│   │   └── utils/           # Event utilities
-│   ├── db/                  # Database Layer
-│   │   ├── di/             # Database DI modules
-│   │   └── *.kt            # Database entities & DAOs
-│   ├── di/                 # Dependency Injection
-│   │   ├── CoreModule.kt   # Core DI module
-│   │   └── InitKoin.kt     # Koin initialization
-│   ├── utils/              # Utilities
-│   │   ├── common/         # Common utilities
-│   │   ├── datastore/      # DataStore implementation
-│   │   ├── logging/        # Logging utilities
-│   │   ├── network_utils/  # Network utilities
-│   │   └── platform/       # Platform-specific utils
-│   ├── purchases/          # RevenueCat integration
-│   └── AppConstants.kt     # App constants
-├── starter_feaures/        # Completed features implemented by StarterTemplate i.e auth etc
-├── theme/                  # Material 3 theming
-└── App.kt                 # Main app entry point
-```
 
 ## 🚀 Quick Start
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/DevAtrii/Kmp-Starter-Template.git
+   git clone https://github.com/7078mohit/Text-Writer
    cd KMP-Starter-Template
    ```
  
@@ -136,4 +84,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built by DevAtrii with ❤️ using Kotlin Multiplatform & Compose**
+**Built by Mohit with ❤️ using Kotlin Multiplatform & Compose**
